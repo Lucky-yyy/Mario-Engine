@@ -10,19 +10,9 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 6 ) ],
+"frames": [ ExtResource( 1 ) ],
 "loop": true,
-"name": "Idle",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 5 ), ExtResource( 2 ) ],
-"loop": true,
-"name": "Run",
-"speed": 30.0
-}, {
-"frames": [ ExtResource( 3 ) ],
-"loop": true,
-"name": "Jump",
+"name": "Fall",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 7 ), ExtResource( 6 ) ],
@@ -30,24 +20,36 @@ animations = [ {
 "name": "Walk",
 "speed": 30.0
 }, {
-"frames": [ ExtResource( 1 ) ],
+"frames": [ ExtResource( 3 ) ],
 "loop": true,
-"name": "Fall",
+"name": "Jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "Run",
+"speed": 30.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "Idle",
 "speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 7, 10 )
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 7.0
+height = 6.0
 
 [node name="Mario" type="KinematicBody2D"]
-position = Vector2( 120, 100 )
 z_index = 1
 script = ExtResource( 4 )
 
 [node name="Animations" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -10 )
 frames = SubResource( 1 )
 animation = "Idle"
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -10 )
 shape = SubResource( 2 )
