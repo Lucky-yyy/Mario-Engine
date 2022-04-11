@@ -16,6 +16,7 @@ script = ExtResource( 3 )
 
 [node name="Mario" parent="." instance=ExtResource( 1 )]
 position = Vector2( 148, 134 )
+collision/safe_margin = 0.001
 
 [node name="StaticBody2D2" parent="." instance=ExtResource( 2 )]
 position = Vector2( 192, 198 )
@@ -27,7 +28,7 @@ position = Vector2( 64, 198 )
 position = Vector2( 448, 198 )
 
 [node name="StaticBody2D4" parent="." instance=ExtResource( 2 )]
-position = Vector2( 320, 187 )
+position = Vector2( 320, 179 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
