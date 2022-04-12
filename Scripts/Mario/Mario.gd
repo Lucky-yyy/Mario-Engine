@@ -1,13 +1,13 @@
 extends KinematicBody2D
 
-const normalspeed = 125
-const runspeed = 200
-const inairspeed = 200
-const jumpstrength = 1100
+const normalspeed = 175
+const runspeed = 350
+var inairspeed = 300
+const jumpstrength = 400
 
 var friction = 10
-const acceleration = 10
-const gravity = 3200
+var acceleration = 10
+const gravity = 2000
 
 func _process(delta):
 	get_input(delta)
@@ -20,6 +20,7 @@ func get_input(delta):
 	if Input.is_action_pressed("Right"):
 		Move.x = 1
 	if Input.is_action_just_pressed("Jump") and is_on_floor():
+		inairspeed = speed
 		jumping = true
 	running = Input.is_action_pressed("Run")
 
@@ -29,18 +30,27 @@ var jumphold = 0
 var jumping : bool
 var running : bool
 var Move : Vector2
+var falling = 0
+var runmeter = 0
+var speed = 0
 
 func movement(delta):
-	var speed = normalspeed
+	speed = normalspeed
+	friction = 10
+	acceleration = 10
 	if running and is_on_floor():
+		friction = 10
+		acceleration = 2
 		speed = runspeed
 	
 	if velocity.x > 0:
 		$Animations.scale.x = -1
-	else:
+	if velocity.x < 0:
 		$Animations.scale.x = 1
 	
 	if not is_on_floor():
+		friction = 5
+		acceleration = 5
 		speed = inairspeed
 		if velocity.y < 0:
 			$Animations.animation = "Jump"
@@ -49,7 +59,8 @@ func movement(delta):
 	elif abs(velocity.x) > 50 and not is_on_wall():
 		$Animations.speed_scale = abs(velocity.x) * 0.0025
 		if running and abs(velocity.x) > 145:
-			friction = 10
+			friction = 5
+		if abs(velocity.x) > 380:
 			$Animations.animation = "Run"
 		else:
 			$Animations.animation = "Walk"
@@ -63,13 +74,19 @@ func movement(delta):
 	else:
 		velocity.x = lerp(velocity.x, 0, friction * delta)
 	
+	if not is_on_floor():
+		if velocity.y < 500:
+			velocity.y += gravity * delta
+	else:
+		velocity.y = 0
+	
 	if jumping == true:
 		if is_on_floor():
 			velocity.y = -jumpstrength
-			jumphold = 20
+			jumphold = 40
 		if jumphold > 0 and Input.is_action_pressed("Jump"):
 			jumphold -= 1
-			velocity.y = 20
+			velocity.y = -jumpstrength / 1.25
 		else:
 			jumping = false
 	else:
@@ -77,9 +94,9 @@ func movement(delta):
 	
 	if is_on_ceiling():
 		jumping = false
-		velocity.y = 0
+		velocity.y = 10
 	
-	if not is_on_floor():
-		velocity.y += delta * gravity
+	if is_on_wall():
+		velocity.x = 0
 	
 	move_and_slide(velocity, Vector2.UP)
