@@ -40,7 +40,6 @@ func movement(delta):
 	acceleration = 10
 	if running and is_on_floor():
 		friction = 10
-		acceleration = 2
 		speed = runspeed
 	
 	if velocity.x > 0:
@@ -60,6 +59,9 @@ func movement(delta):
 		$Animations.speed_scale = abs(velocity.x) * 0.0025
 		if running and abs(velocity.x) > 145:
 			friction = 5
+			acceleration = 2
+		else:
+			friction = 10
 		if abs(velocity.x) > 380:
 			$Animations.animation = "Run"
 		else:

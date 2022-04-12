@@ -9,29 +9,29 @@
 script = ExtResource( 4 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 160, 100 )
+position = Vector2( 212, 120 )
 rotating = true
 current = true
 script = ExtResource( 3 )
 
 [node name="Mario" parent="." instance=ExtResource( 1 )]
-position = Vector2( 148, 134 )
+position = Vector2( 40, 128 )
 collision/safe_margin = 0.001
 
 [node name="StaticBody2D2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 192, 198 )
+position = Vector2( 192, 192 )
 
 [node name="StaticBody2D" parent="." instance=ExtResource( 2 )]
-position = Vector2( 64, 198 )
+position = Vector2( 64, 192 )
 
 [node name="StaticBody2D3" parent="." instance=ExtResource( 2 )]
-position = Vector2( 448, 198 )
+position = Vector2( 488, 152 )
 
 [node name="Ground2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 243, -15 )
+position = Vector2( 688, 112 )
 
 [node name="StaticBody2D4" parent="." instance=ExtResource( 2 )]
-position = Vector2( 320, 179 )
+position = Vector2( 320, 168 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
