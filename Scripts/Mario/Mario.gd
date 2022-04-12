@@ -3,7 +3,7 @@ extends KinematicBody2D
 const normalspeed = 125
 const runspeed = 200
 const inairspeed = 200
-const jumpstrength = 500
+const jumpstrength = 1100
 
 var friction = 10
 const acceleration = 10
@@ -34,7 +34,6 @@ func movement(delta):
 	var speed = normalspeed
 	if running and is_on_floor():
 		speed = runspeed
-	Move = Move.normalized() * speed
 	
 	if velocity.x > 0:
 		$Animations.scale.x = -1
@@ -57,6 +56,8 @@ func movement(delta):
 	else:
 		$Animations.animation = "Idle"
 	
+	Move = Move.normalized() * speed
+	
 	if not Move.x == 0:
 		velocity.x = lerp(velocity.x, Move.x, acceleration * delta)
 	else:
@@ -68,7 +69,7 @@ func movement(delta):
 			jumphold = 20
 		if jumphold > 0 and Input.is_action_pressed("Jump"):
 			jumphold -= 1
-			velocity.y = -jumpstrength
+			velocity.y = 20
 		else:
 			jumping = false
 	else:
