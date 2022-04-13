@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scripts/Mario/Mario.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Stages/map.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/Camera.gd" type="Script" id=3]
+[ext_resource path="res://Stages/Test Stage.gd" type="Script" id=4]
+
+[node name="Test Stage" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+margin_right = 198.0
+margin_bottom = 54.0
+rect_scale = Vector2( 0.5, 0.5 )
+text = "x:
+y:
+jump:
+"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 212, 120 )
+rotating = true
+current = true
+script = ExtResource( 3 )
+
+[node name="map" parent="." instance=ExtResource( 2 )]
+
+[node name="Mario" parent="." instance=ExtResource( 1 )]
+position = Vector2( 136, 40 )

@@ -19,9 +19,6 @@ func get_input(delta):
 		Move.x = -1
 	if Input.is_action_pressed("Right"):
 		Move.x = 1
-	if Input.is_action_just_pressed("Jump") and is_on_floor():
-		inairspeed = speed
-		jumping = true
 	running = Input.is_action_pressed("Run")
 
 #Movement's Variables
@@ -79,18 +76,19 @@ func movement(delta):
 	if not is_on_floor():
 		if velocity.y < 500:
 			velocity.y += gravity * delta
+		else:
+			velocity.y = 500
 	else:
 		velocity.y = 0
 	
-	if jumping == true:
-		if is_on_floor():
-			velocity.y = -jumpstrength
-			jumphold = 40
-		if jumphold > 0 and Input.is_action_pressed("Jump"):
-			jumphold -= 1
-			velocity.y = -jumpstrength / 1.25
-		else:
-			jumping = false
+	
+	
+	if Input.is_action_just_pressed("Jump") and is_on_floor():
+		velocity.y = -jumpstrength
+		jumphold = 10
+	if jumphold > 0 and Input.is_action_pressed("Jump"):
+		velocity.y = -jumpstrength / 1.25
+		jumphold -= 1 * (delta / 0.025)
 	else:
 		jumphold = 0
 	
